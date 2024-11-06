@@ -24,7 +24,10 @@ El backend de **TestingDev** provee una API RESTful con las siguientes caracter�
 - **Gestión de Posts**: Los usuarios autenticados pueden crear, ver, listar y borrar sus publicaciones en el blog.
 - **Categorías de Posts**: Los posts pueden ser categorizados, facilitando la organización y filtrado.
 
-Para más detalles sobre el backend, consulta el archivo `README.md` en el directorio `back`.
+Para configurar y ejecutar el backend, consulta el archivo `README.md` en el directorio `back`. Es importante ejecutar el comando de migración junto con los seeders para cargar los datos iniciales en la base de datos:
+```bash
+php artisan migrate --seed
+```
 
 ### Frontend (React)
 
@@ -33,6 +36,12 @@ El frontend de **TestingDev** permite a los usuarios interactuar con la API a tr
 - **Pantalla de Inicio de Sesión**: Permite a los usuarios autenticarse.
 - **Pantalla de Registro**: Permite a los nuevos usuarios registrarse en la plataforma.
 - **Gestión de Posts**: Vista donde los usuarios autenticados pueden crear nuevos posts, ver sus publicaciones existentes, y filtrarlas por categoría.
+
+En el archivo `package.json` del frontend, se ha configurado un proxy:
+```json
+"proxy": "https://testingdev.nes360.org"
+```
+Es posible que necesites modificar este valor para que se adapte al entorno en el que estás ejecutando el backend, para que el frontend funcione correctamente.
 
 Para más detalles sobre el frontend, consulta el archivo `README.md` en el directorio `front2`.
 
@@ -48,7 +57,10 @@ A continuación, se proporciona una guía básica para ejecutar el proyecto. Par
 
 ### Instalación del Backend
 
-Sigue los pasos detallados en el archivo `README.md` en el directorio `back` para configurar y ejecutar el backend.
+Sigue los pasos detallados en el archivo `README.md` en el directorio `back` para configurar y ejecutar el backend, asegurándote de ejecutar las migraciones y seeders con el comando:
+```bash
+php artisan migrate --seed
+```
 
 ### Instalación del Frontend
 
@@ -68,10 +80,6 @@ Sigue los pasos detallados en el archivo `README.md` en el directorio `back` par
    ```
 
 Esto iniciará el servidor de desarrollo en `http://localhost:3000`, que también redirige las solicitudes de API al backend usando el proxy configurado.
-
-## Proxy
-
-En el archivo `package.json` del frontend, se ha configurado un proxy para redirigir las solicitudes API a `https://testingdev.nes360.org`. Esto asegura que las solicitudes al backend se manejen correctamente durante el desarrollo.
 
 ## Contribuciones
 
