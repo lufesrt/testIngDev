@@ -31,4 +31,33 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Usuario registrado exitosamente', 'user' => $user], 201);
     }
+
+    /**
+     * Login a user and return a simple token.
+     */
+    public function login(Request $request)
+    {
+        // Validar los datos de entrada
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Buscar al usuario por email
+        $user = User::where('email', $request->email)->first();
+
+        // Verificar la contraseña
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Credenciales incorrectas'], 401);
+        }
+
+        // Crear un token simple
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json(['message' => 'Login exitoso', 'token' => $token], 200);
+    }
 }
